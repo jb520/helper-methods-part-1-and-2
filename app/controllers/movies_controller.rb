@@ -6,13 +6,11 @@ class MoviesController < ApplicationController
   end
 
   def index
-    matching_movies = Movie.all
-
-    @list_of_movies = matching_movies.order({ :created_at => :desc })
+    @movies = Movie.order(created_at: :desc)
 
     respond_to do |format|
       format.json do
-        render json: @list_of_movies
+        render json: @movies
       end
 
       format.html do
@@ -24,7 +22,7 @@ class MoviesController < ApplicationController
   def show
     the_id = params.fetch(:id)
 
-    matching_movies = Movie.where({ :id => the_id })
+    matching_movies = Movie.where(id: the_id)
 
     @the_movie = matching_movies.first
 
@@ -33,8 +31,8 @@ class MoviesController < ApplicationController
 
   def create
     @the_movie = Movie.new
-    @the_movie.title = params.fetch("query_title")
-    @the_movie.description = params.fetch("query_description")
+    @the_movie.title = params.fetch(:title)
+    @the_movie.description = params.fetch(:description)
 
     if @the_movie.valid?
       @the_movie.save
