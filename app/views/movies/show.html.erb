@@ -19,7 +19,10 @@
       </div>
 
       <div>
-        <%= link_to "Delete Movie", @movie, data: { turbo_method: :delete } %>
+        <a href="/movies/<%= @the_movie.id %>" data-turbo-method="delete">
+          Delete movie
+        </a>
+       <!--<%= link_to "Delete Movie", @movie, data: { turbo_method: :delete } %>-->
       </div>
     </div>
 
